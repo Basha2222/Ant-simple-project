@@ -1,0 +1,30 @@
+<project name="MyAntProject" default="run" basedir=".">
+
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${build}"/>
+        <javac srcdir="${src}" destdir="${build}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${dist}"/>
+        <jar destfile="${dist}/HelloWorld.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="com.example.HelloWorld"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${dist}/HelloWorld.jar" fork="true"/>
+    </target>
+
+</project>
